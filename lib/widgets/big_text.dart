@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/utils/dimensions.dart';
 
 class BigText extends StatelessWidget {
   const BigText({
@@ -6,7 +7,7 @@ class BigText extends StatelessWidget {
     this.color = const Color(0xFF332d2b),
     required this.text,
     this.overflow = TextOverflow.ellipsis,
-    this.size = 20,
+    this.size = 0,
   }) : super(key: key);
   final Color color;
   final String text;
@@ -21,9 +22,9 @@ class BigText extends StatelessWidget {
       overflow: overflow,
       style: TextStyle(
         color: color,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         fontFamily: 'Roboto',
-        fontSize: size,
+        fontSize: size == 0 ? Dimensions.font20 : size,
       ),
     );
   }
