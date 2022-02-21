@@ -95,6 +95,17 @@ class ProductModel {
     }
   }
 
+  String get img => _img!;
+  String get name => _name!;
+  String get description => _description!;
+  String get location => _location!;
+  String get createdAt => _createdAt!;
+  String get updatedAt => _updatedAt!;
+  int get price => _price!;
+  int get stars => _stars!;
+  int get typeId => _typeId!;
+  int get id => _id!;
+
   ProductModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
