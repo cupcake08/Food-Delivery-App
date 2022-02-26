@@ -19,7 +19,7 @@ class PopularFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductModel product =
         Get.find<PopularProductController>().popularProductList[pageId];
-    debugPrint("Model name is ${product.name}");
+    Get.find<PopularProductController>().init();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -95,60 +95,73 @@ class PopularFoodDetail extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
-        height: Dimensions.bottomHeightBar,
-        decoration: BoxDecoration(
-          color: AppColors.buttonBackgroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(Dimensions.radius20 * 2),
-            topRight: Radius.circular(Dimensions.radius20 * 2),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.width15,
-                vertical: Dimensions.height20,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.remove,
-                    color: AppColors.signColor,
-                  ),
-                  SizedBox(width: Dimensions.width10 / 5),
-                  const BigText(text: "0"),
-                  SizedBox(width: Dimensions.width10 / 5),
-                  const Icon(
-                    Icons.add,
-                    color: AppColors.signColor,
-                  ),
-                ],
+      bottomNavigationBar: GetBuilder<PopularProductController>(
+        builder: (controller) {
+          int amount = controller.quantity * product.price;
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
+            height: Dimensions.bottomHeightBar,
+            decoration: BoxDecoration(
+              color: AppColors.buttonBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimensions.radius20 * 2),
+                topRight: Radius.circular(Dimensions.radius20 * 2),
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.width15,
-                vertical: Dimensions.height20,
-              ),
-              child: BigText(
-                text: "\$${product.price} | Add to bag",
-                color: Colors.white,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: AppColors.mainColor,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.width10,
+                    vertical: Dimensions.height10 / 1.5,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: () => controller.setQuantity(false),
+                        icon: const Icon(
+                          Icons.remove,
+                          color: AppColors.signColor,
+                        ),
+                      ),
+                      SizedBox(width: Dimensions.width10 / 5),
+                      BigText(text: '${controller.quantity}'),
+                      SizedBox(width: Dimensions.width10 / 5),
+                      IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: () => controller.setQuantity(true),
+                        icon: const Icon(
+                          Icons.add,
+                          color: AppColors.signColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.width15,
+                    vertical: Dimensions.height20,
+                  ),
+                  child: BigText(
+                    text: "\$$amount | Add to bag",
+                    color: Colors.white,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                    color: AppColors.mainColor,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
