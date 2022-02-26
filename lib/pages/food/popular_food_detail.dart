@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/models/product_model.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -19,7 +20,8 @@ class PopularFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductModel product =
         Get.find<PopularProductController>().popularProductList[pageId];
-    Get.find<PopularProductController>().init();
+    Get.find<PopularProductController>()
+        .init(Get.find<CartController>(), product);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -52,12 +54,37 @@ class PopularFoodDetail extends StatelessWidget {
                   child: const AppIcon(icon: Icons.arrow_back_ios),
                   onTap: () => Get.toNamed(RouteHelper.getInitial()),
                 ),
-                InkWell(
-                  child: const AppIcon(icon: Icons.shopping_bag_outlined),
-                  onTap: () {
-                    ///TODO: put cart route here
-                  },
-                ),
+                GetBuilder<PopularProductController>(builder: (product) {
+                  return Stack(
+                    children: [
+                      const AppIcon(icon: Icons.shopping_cart_outlined),
+                      Get.find<PopularProductController>().inCartItems > 0
+                          ? const Positioned(
+                              top: 0,
+                              right: 0,
+                              child: AppIcon(
+                                icon: Icons.circle,
+                                size: 18,
+                                iconColor: Colors.transparent,
+                                backgroundColor: AppColors.mainColor,
+                              ),
+                            )
+                          : Container(),
+                      Get.find<PopularProductController>().inCartItems > 0
+                          ? Positioned(
+                              top: 2,
+                              right: 5,
+                              child: BigText(
+                                text: Get.find<PopularProductController>()
+                                    .inCartItems
+                                    .toString(),
+                                size: 12,
+                                color: Colors.white,
+                              ))
+                          : Container(),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
@@ -144,18 +171,21 @@ class PopularFoodDetail extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Dimensions.width15,
-                    vertical: Dimensions.height20,
-                  ),
-                  child: BigText(
-                    text: "\$$amount | Add to bag",
-                    color: Colors.white,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Dimensions.radius20),
-                    color: AppColors.mainColor,
+                InkWell(
+                  onTap: () => controller.addItem(product),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Dimensions.width15,
+                      vertical: Dimensions.height20,
+                    ),
+                    child: BigText(
+                      text: "\$$amount | Add to cart",
+                      color: Colors.white,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimensions.radius20),
+                      color: AppColors.mainColor,
+                    ),
                   ),
                 ),
               ],
