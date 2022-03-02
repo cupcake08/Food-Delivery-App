@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
+import 'package:food_delivery/models/cart_model.dart';
 import 'package:get/get.dart';
 
 import '../data/repository/popular_product_repo.dart';
@@ -22,6 +23,7 @@ class PopularProductController extends GetxController {
   bool get isLoading => _isLoading;
   int get quantity => _quantity;
   int get inCartItems => _inCartItems;
+  List<CartModel> get getItems => _cart.getItems;
 
   void init(CartController cart, ProductModel product) {
     _quantity = 0;

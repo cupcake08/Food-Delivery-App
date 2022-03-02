@@ -16,7 +16,11 @@ class CartController extends GetxController {
     }
   }
 
-  int cartItems() => _items.length;
+  int get cartItems => _items.length;
+  List<CartModel> get getItems {
+    return _items.entries.map((e) => e.value).toList();
+  }
+
   void addItem(ProductModel product, int quantity) {
     if (_items.containsKey(product.id) && quantity == 0) {
       _items.remove(product.id);
