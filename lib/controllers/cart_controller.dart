@@ -22,6 +22,7 @@ class CartController extends GetxController {
   }
 
   void addItem(ProductModel product, int quantity) {
+    if (quantity < 0) return;
     if (_items.containsKey(product.id) && quantity == 0) {
       _items.remove(product.id);
     } else if (_items.containsKey(product.id)) {
@@ -34,6 +35,7 @@ class CartController extends GetxController {
           isExist: true,
           time: DateTime.now().toString(),
           quantity: quantity,
+          product: product,
         );
       });
     } else {
@@ -48,9 +50,11 @@ class CartController extends GetxController {
             isExist: true,
             time: DateTime.now().toString(),
             quantity: quantity,
+            product: product,
           );
         },
       );
     }
+    update();
   }
 }

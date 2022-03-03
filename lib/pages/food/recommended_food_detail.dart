@@ -3,7 +3,6 @@ import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/models/product_model.dart';
-import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
@@ -42,7 +41,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                   return Stack(
                     children: [
                       GestureDetector(
-                        onTap: () => Get.to(() => const Cart()),
+                        onTap: () => Get.toNamed(RouteHelper.getCartPage()),
                         child:
                             const AppIcon(icon: Icons.shopping_cart_outlined),
                       ),

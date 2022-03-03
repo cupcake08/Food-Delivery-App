@@ -1,3 +1,4 @@
+import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food/popular_food_detail.dart';
 import 'package:food_delivery/pages/food/recommended_food_detail.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
@@ -35,5 +36,10 @@ class RouteHelper {
       },
       transition: Transition.fadeIn,
     ),
+    GetPage(
+      name: cartRoute,
+      page: () => const Cart(),
+      transition: Transition.fadeIn,
+    )
   ];
 }

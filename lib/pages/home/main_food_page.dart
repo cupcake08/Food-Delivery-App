@@ -19,7 +19,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             child: Container(
               margin: EdgeInsets.only(
                   top: Dimensions.height45, bottom: Dimensions.height15),
