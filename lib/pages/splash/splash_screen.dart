@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:get/get.dart';
@@ -16,15 +18,15 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  // Future<void> _loadResources() async {
-  //   await Get.find<PopularProductController>().getPopularProductList();
-  //   await Get.find<RecommendedProductController>().getRecommendedProductList();
-  // }
+  Future<void> _loadResources() async {
+    await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<RecommendedProductController>().getRecommendedProductList();
+  }
 
   @override
   void initState() {
     super.initState();
-    // _loadResources();
+    _loadResources();
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1300),

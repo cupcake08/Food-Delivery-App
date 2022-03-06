@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/helpers/dependencies.dart' as dep;
-import 'package:food_delivery/pages/home/main_food_page.dart';
-import 'package:food_delivery/pages/splash/splash_screen.dart';
 import 'package:get/get.dart';
 import './routes/route_helper.dart';
 
@@ -18,23 +16,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendedProductController>().getRecommendedProductList();
-    // return GetBuilder<PopularProductController>(builder: (_) {
-    //   return GetBuilder<RecommendedProductController>(builder: (_) {
-    //     return GetMaterialApp(
-    //       debugShowCheckedModeBanner: false,
-    //       title: 'Flutter Demo',
-    //       initialRoute: RouteHelper.getSplashPage(),
-    //       getPages: RouteHelper.routes,
-    //     );
-    //   });
-    // });
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      initialRoute: RouteHelper.getSplashPage(),
-      getPages: RouteHelper.routes,
-    );
+    // Get.find<PopularProductController>().getPopularProductList();
+    // Get.find<RecommendedProductController>().getRecommendedProductList();
+    return GetBuilder<PopularProductController>(builder: (_) {
+      return GetBuilder<RecommendedProductController>(builder: (_) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          initialRoute: RouteHelper.getSplashPage(),
+          getPages: RouteHelper.routes,
+        );
+      });
+    });
+    // return GetMaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'Flutter Demo',
+    //   initialRoute: RouteHelper.getSplashPage(),
+    //   getPages: RouteHelper.routes,
+    // );
   }
 }

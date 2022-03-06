@@ -23,7 +23,7 @@ class Product {
       _products = products;
     }
   }
-  List<ProductModel>? get products => _products;
+  List<ProductModel> get products => _products!;
   set products(List<ProductModel>? products) => _products = products;
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -117,5 +117,19 @@ class ProductModel {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
     _typeId = json['type_id'];
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "id": _id,
+      "name": _name,
+      "description": _description,
+      "price": _price,
+      "stars": _stars,
+      "img": _img,
+      "location": _location,
+      "created_at": _createdAt,
+      "updated_at": _updatedAt,
+      "type_id": _typeId,
+    };
   }
 }

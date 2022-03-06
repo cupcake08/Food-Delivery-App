@@ -55,6 +55,7 @@ class CartController extends GetxController {
         },
       );
     }
+    cartRepo.addToSharedPreferences(getItems);
     update();
   }
 }
