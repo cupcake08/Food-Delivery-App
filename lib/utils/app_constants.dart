@@ -8,4 +8,5 @@ class AppConstants {
   static const String RECOMMENDED_PRODUCT_URI = "/api/v1/products/recommended";
   static const String TOKEN = "abtOKEN";
   static const String CART_LIST = "cart-items";
+  static const String CART_HISTORY_LIST = "cart-history";
 }

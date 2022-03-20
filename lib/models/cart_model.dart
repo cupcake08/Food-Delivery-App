@@ -67,7 +67,7 @@ class CartModel {
       "quantity": _quantity,
       "time": _time,
       "isExist": _isExist,
-      "product": _product,
+      "product": _product!.toJson(),
     };
   }
 }

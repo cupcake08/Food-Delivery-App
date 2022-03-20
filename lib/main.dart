@@ -4,6 +4,7 @@ import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/helpers/dependencies.dart' as dep;
 import 'package:get/get.dart';
 import './routes/route_helper.dart';
+import 'controllers/cart_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<CartController>().getCartData();
     // Get.find<PopularProductController>().getPopularProductList();
     // Get.find<RecommendedProductController>().getRecommendedProductList();
     return GetBuilder<PopularProductController>(builder: (_) {

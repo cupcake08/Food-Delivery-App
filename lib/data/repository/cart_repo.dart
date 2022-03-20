@@ -10,6 +10,7 @@ class CartRepo extends GetxService {
   CartRepo({required this.sp});
 
   List<String> cart = [];
+  List<String> cartHistory = [];
 
   void addToSharedPreferences(List<CartModel> items) {
     cart = [];
@@ -24,7 +25,7 @@ class CartRepo extends GetxService {
     List<String> cart = [];
     if (sp.containsKey(AppConstants.CART_LIST)) {
       cart = sp.getStringList(AppConstants.CART_LIST) ?? [];
-      print("from local storage: $cart");
+      //print("from local storage: $cart");
     }
 
     List<CartModel> finalCart = [];
@@ -33,5 +34,32 @@ class CartRepo extends GetxService {
       finalCart.add(CartModel.fromJson(jsonDecode(cart[i])));
     }
     return finalCart;
+  }
+
+  List<CartModel> getCartHistoryItems() {
+    if (sp.containsKey(AppConstants.CART_HISTORY_LIST)) {
+      cartHistory = [];
+      cartHistory = sp.getStringList(AppConstants.CART_HISTORY_LIST) ?? [];
+    }
+    List<CartModel> historyCart = [];
+    for (int i = 0; i < cartHistory.length; i++) {
+      historyCart.add(CartModel.fromJson(jsonDecode(cartHistory[i])));
+    }
+    return historyCart;
+  }
+
+  void addToCartHistoryList() {
+    if (sp.containsKey(AppConstants.CART_HISTORY_LIST)) {
+      cartHistory = sp.getStringList(AppConstants.CART_HISTORY_LIST) ?? [];
+    }
+    for (int i = 0; i < cart.length; i++) {
+      cartHistory.add(cart[i]);
+    }
+    sp.setStringList(AppConstants.CART_HISTORY_LIST, cartHistory);
+  }
+
+  void removeCart() {
+    cart = [];
+    sp.remove(AppConstants.CART_LIST);
   }
 }

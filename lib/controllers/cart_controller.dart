@@ -6,7 +6,7 @@ import 'package:get/state_manager.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
-  final Map<int, CartModel> _items = {};
+  Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
   bool cartExist(ProductModel product) {
     if (_items.containsKey(product.id)) {
@@ -15,6 +15,8 @@ class CartController extends GetxController {
       return false;
     }
   }
+
+  List<CartModel> storageItems = [];
 
   int get cartItems => _items.length;
   List<CartModel> get getItems {
@@ -56,6 +58,27 @@ class CartController extends GetxController {
       );
     }
     cartRepo.addToSharedPreferences(getItems);
+    update();
+  }
+
+  List<CartModel> getCartData() {
+    setCart = cartRepo.getCartItems();
+    return storageItems;
+  }
+
+  set setCart(List<CartModel> items) {
+    storageItems = items;
+    for (int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(storageItems[i].product.id, () => storageItems[i]);
+    }
+  }
+
+  void addToCartHistory() {
+    cartRepo.addToCartHistoryList();
+  }
+
+  void clear() {
+    _items = {};
     update();
   }
 }

@@ -101,14 +101,17 @@ class Cart extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    cartController.addToCartHistory();
+                    cartController.clear();
+                  },
                   child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.width15,
                         vertical: Dimensions.height20,
                       ),
                       child: const BigText(
-                        text: "Place Order",
+                        text: "Check Out",
                         color: Colors.white,
                       ),
                       decoration: BoxDecoration(
